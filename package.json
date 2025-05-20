@@ -6,13 +6,13 @@
   "license": "MIT",
   "main": "dist/index",
   "types": "dist/index",
-  "homepage": "https://github.com/joedeandev/prettier-plugin-nginx",
+  "homepage": "https://github.com/nkeil/prettier-plugin-nginx-lua",
   "repository": {
     "type": "git",
-    "url": "https://github.com/joedeandev/prettier-plugin-nginx.git"
+    "url": "https://github.com/nkeil/prettier-plugin-nginx-lua.git"
   },
   "bugs": {
-    "url": "https://github.com/joedeandev/prettier-plugin-nginx/issues"
+    "url": "https://github.com/nkeil/prettier-plugin-nginx-lua/issues"
   },
   "keywords": [
     "nginx",

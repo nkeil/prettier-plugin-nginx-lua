@@ -1,9 +1,11 @@
 <div align="center">
     <img src="./.github/images/prettier-plugin-nginx.png" alt="Banner">
 </div>
-<h1 align="center">Prettier for NGINX</h1>
+<h1 align="center">Prettier for NGINX with Lua Support</h1>
 
 <hr>
+
+Fork of https://github.com/jxddk/prettier-plugin-nginx
 
 This TypeScript module is a plugin for [Prettier](https://prettier.io) that
 beautifies
@@ -86,7 +88,7 @@ in the [NGINX docs](https://nginx.org/en/docs/faq.html).
 ## Contributing
 
 Bug reports and pull requests are welcome on
-[GitHub](https://github.com/joedeandev/prettier-plugin-nginx/issues).
+[GitHub](https://github.com/nkeil/prettier-plugin-nginx-lua/issues).
 
 ## License
 
