@@ -1,9 +1,12 @@
 {
-  "name": "prettier-plugin-nginx",
-  "version": "1.0.3",
-  "description": "NGINX configuration plugin for Prettier",
-  "author": "Joe Dean <joe@joedean.dev>",
+  "name": "prettier-plugin-nginx-lua",
+  "version": "1.0.0",
+  "description": "NGINX configuration plugin for Prettier with Lua support",
+  "author": "Nicolas Keil <nkeil.dev@gmail.com>",
   "license": "MIT",
+  "engines": {
+    "node": ">=22.x"
+  },
   "main": "dist/index",
   "types": "dist/index",
   "homepage": "https://github.com/nkeil/prettier-plugin-nginx-lua",
@@ -21,7 +24,8 @@
     "configuration",
     "format",
     "autoformat",
-    "autoformatter"
+    "autoformatter",
+    "lua"
   ],
   "scripts": {
     "build": "tsc",
@@ -29,9 +33,8 @@
     "test": "npm run build-test && cd dist-test && node index.js"
   },
   "devDependencies": {
-    "@types/node": "^18.15.3",
-    "@types/prettier": "^2.7.2",
-    "prettier": "^2.8.4",
-    "typescript": "^5.0.0"
+    "@types/node": "^22.15.21",
+    "prettier": "^3.5.3",
+    "typescript": "^5.8.3"
   }
 }

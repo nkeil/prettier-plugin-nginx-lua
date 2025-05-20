@@ -5,7 +5,7 @@
 
 <hr>
 
-Fork of https://github.com/jxddk/prettier-plugin-nginx
+Fork of [prettier-plugin-nginx](https://github.com/jxddk/prettier-plugin-nginx)
 
 This TypeScript module is a plugin for [Prettier](https://prettier.io) that
 beautifies
