@@ -8,6 +8,7 @@ import {
   type RequiredOptions,
 } from "prettier";
 import { builders } from "prettier/doc";
+import { luaDirectives } from "./directives.js";
 
 const newline = builders.hardline;
 
@@ -28,6 +29,12 @@ interface ASTBlockNode extends ASTNodeInterface {
   type: "main" | "block" | "directive" | "blockdirective";
 }
 
+interface ASTLuaDirective extends ASTNodeInterface {
+  type: "luaDirective";
+  name: string;
+  content: string[];
+}
+
 interface ASTContentNode extends ASTNodeInterface {
   type: "name" | "parameter" | "inlinecomment";
   content: string;
@@ -43,7 +50,12 @@ interface ASTEmptyNode extends ASTNodeInterface {
   content: undefined;
 }
 
-type ASTNode = ASTBlockNode | ASTContentNode | ASTCommentNode | ASTEmptyNode;
+type ASTNode =
+  | ASTBlockNode
+  | ASTLuaDirective
+  | ASTContentNode
+  | ASTCommentNode
+  | ASTEmptyNode;
 
 const nginxParser: Parser = {
   astFormat: "nginx",
@@ -242,6 +254,22 @@ const nginxParser: Parser = {
       // re-parse nodes to gather directives, remove linebreaks
       nodes = nodes.filter((n) => n.type != "linebreak");
       skipTo = 0;
+
+      if (nodes[0]?.type === "name" && luaDirectives.has(nodes[0]?.content)) {
+        const start = nodes[1]?.start;
+        const end = nodes.at(-1)?.end!;
+        const content = t.slice(start, end).trim().slice(1, -1).trim();
+        return [
+          {
+            type: "luaDirective",
+            name: nodes[0].content,
+            content: content.split("\n"),
+            start: start,
+            end: end,
+          },
+        ];
+      }
+
       let gatheredNodes: ASTNode[] = [];
       for (let i = 0; i < nodes.length; i++) {
         if (i < skipTo) {
@@ -563,7 +591,7 @@ const nginxPrinter: Printer = {
       ) {
         blockDocs.push("\n");
       }
-      node.content.forEach((subnode) => {
+      for (const subnode of node.content) {
         switch (subnode.type) {
           case "inlinecomment":
             blockDocs.push(" ");
@@ -580,6 +608,18 @@ const nginxPrinter: Printer = {
               generateDirectiveDocs(subnode, indentsCount, 0)
             );
             break;
+          case "luaDirective":
+            const content =
+              `${getIndents(indentsCount) + subnode.name}\n` +
+              subnode.content
+                .map((line) => getIndents(indentsCount + 1) + line.trim())
+                .join("\n") +
+              `\n${getIndents(indentsCount)}}`;
+
+            blockDocs.push("\n");
+            blockDocs.push(content);
+            blockDocs.push("\n");
+            break;
           case "directive":
             blockDocs = blockDocs.concat(
               generateDirectiveDocs(subnode, indentsCount, blockColEnd)
@@ -590,7 +630,7 @@ const nginxPrinter: Printer = {
             blockDocs.push("\r");
             break;
         }
-      });
+      }
       return blockDocs.flat();
     };
     let docs: Doc[] = [];

@@ -30,13 +30,17 @@
   ],
   "scripts": {
     "build": "tsc",
-    "build-test": "npm run build && tsc -p tsconfig.tests.json && mkdir -p ./dist-test/files && cp -r ./test/files/. ./dist-test/files",
-    "test": "tsx test/index.ts"
+    "test": "npm run build && tsx test/index.ts"
   },
   "devDependencies": {
     "@types/node": "^22.15.21",
     "prettier": "^3.5.3",
     "tsx": "^4.19.4",
     "typescript": "^5.8.3"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "esbuild"
+    ]
   }
 }
