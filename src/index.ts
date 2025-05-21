@@ -1,11 +1,11 @@
 import {
   AstPath,
-  Doc,
-  Parser,
-  ParserOptions,
-  Plugin,
-  Printer,
-  RequiredOptions,
+  type Doc,
+  type Parser,
+  type ParserOptions,
+  type Plugin,
+  type Printer,
+  type RequiredOptions,
 } from "prettier";
 import { builders } from "prettier/doc";
 

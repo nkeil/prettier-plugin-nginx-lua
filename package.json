@@ -4,6 +4,7 @@
   "description": "NGINX configuration plugin for Prettier with Lua support",
   "author": "Nicolas Keil <nkeil.dev@gmail.com>",
   "license": "MIT",
+  "type": "module",
   "engines": {
     "node": ">=22.x"
   },
@@ -30,11 +31,12 @@
   "scripts": {
     "build": "tsc",
     "build-test": "npm run build && tsc -p tsconfig.tests.json && mkdir -p ./dist-test/files && cp -r ./test/files/. ./dist-test/files",
-    "test": "npm run build-test && cd dist-test && node index.js"
+    "test": "tsx test/index.ts"
   },
   "devDependencies": {
     "@types/node": "^22.15.21",
     "prettier": "^3.5.3",
+    "tsx": "^4.19.4",
     "typescript": "^5.8.3"
   }
 }
